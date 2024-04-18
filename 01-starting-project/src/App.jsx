@@ -33,6 +33,17 @@ function CoreConcept(props) {
   );
 }
 
+// destructre props object for more readable shorter code
+function CoreConceptDestructure({image, title, description}) {
+  return (
+    <li>
+      <img src={image} alt={title} />
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </li>
+  );
+}
+
 function App() {
   return (
     <div>
@@ -44,7 +55,7 @@ function App() {
           <ul>
             <CoreConcept {...CORE_CONCEPTS[0]} />
             <CoreConcept {...CORE_CONCEPTS[1]} />
-            <CoreConcept {...CORE_CONCEPTS[2]} />
+            <CoreConceptDestructure {...CORE_CONCEPTS[2]} />
             <CoreConcept
               title={CORE_CONCEPTS[3].title}
               description={CORE_CONCEPTS[3].description}
