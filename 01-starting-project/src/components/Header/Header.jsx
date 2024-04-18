@@ -1,5 +1,5 @@
 // Import image as object and automaticcally make it's value the path when referenced in JSX
-import reactImg from '../assets/react-core-concepts.png';
+import reactImg from '../../assets/react-core-concepts.png';
 import './Header.css';
 
 const reactDescriptions = ['Fundamental', 'Crucial', 'Core'];
