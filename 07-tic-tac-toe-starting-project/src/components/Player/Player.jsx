@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './Player.css';
 
 export default function Player({ initialName, symbol }) {
   const [playerName, setPlayerName] = useState(initialName);
@@ -18,6 +19,7 @@ export default function Player({ initialName, symbol }) {
     setPlayerName(event.target.value);
   }
 
+  // This would be called two way binding as we get the value from the input, but also update the value on the input
   let name = <span className="player-name">{playerName}</span>;
   let buttonText = 'Edit';
 
