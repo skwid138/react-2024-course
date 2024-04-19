@@ -15,7 +15,7 @@ function App() {
   }
 
   return (
-    <div>
+    <>
       <Header />
       <main>
         <h2>Time to get started!</h2>
@@ -49,7 +49,7 @@ function App() {
 
         </section>
       </main>
-    </div>
+    </>
   );
 }
 
