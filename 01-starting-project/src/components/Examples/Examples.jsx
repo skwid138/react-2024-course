@@ -17,10 +17,10 @@ export default function Examples(props) {
   return (
     <Section title="Examples" id="examples">
       <menu>
-        <TabButton isSelected={selectedTopic === 'components'} onSelect={() => selectHandler('components')}>Components</TabButton>
-        <TabButton isSelected={selectedTopic === 'jsx'} onSelect={() => selectHandler('jsx')}>JSX</TabButton>
-        <TabButton isSelected={selectedTopic === 'props'} onSelect={() => selectHandler('props')}>Props</TabButton>
-        <TabButton isSelected={selectedTopic === 'state'} onSelect={() => selectHandler('state')}>State</TabButton>
+        <TabButton isSelected={selectedTopic === 'components'} onClick={() => selectHandler('components')}>Components</TabButton>
+        <TabButton isSelected={selectedTopic === 'jsx'} onClick={() => selectHandler('jsx')}>JSX</TabButton>
+        <TabButton isSelected={selectedTopic === 'props'} onClick={() => selectHandler('props')}>Props</TabButton>
+        <TabButton isSelected={selectedTopic === 'state'} onClick={() => selectHandler('state')}>State</TabButton>
       </menu>
 
       {!selectedTopic && <p>Please select an example.</p>}
