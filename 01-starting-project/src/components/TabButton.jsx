@@ -1,12 +1,8 @@
-export default function (props) {
-    function clickHandler() {
-        console.log('suh dude');
-    }
-
+export default function ({ children, onSelect }) {
     // props.children is the value between a component opening and closing tags
     return (
         <li>
-            <button onClick={clickHandler}>{props.children}</button>
+            <button onClick={onSelect}>{children}</button>
         </li>
     );
 }

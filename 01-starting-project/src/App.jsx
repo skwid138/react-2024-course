@@ -1,12 +1,22 @@
+// All React functions that have a 'use' preface are called hooks
+import { useState } from 'react';
 import { CORE_CONCEPTS } from './data.js';
 import Header from './components/Header/Header.jsx';
 import { CoreConcept, CoreConceptDestructure } from './components/CoreConcept/CoreConcept.jsx';
 import TabButton from './components/TabButton.jsx';
 
 function App() {
+  // This always takes 2 values (the names are arbitrary)
+  // The first value is the current state obj and the later is a function to update the state object
+  const [ selectedTopic, setSelectedTopic ] = useState('Please select an example.'); // This must only be called inside of component functions and at the top level
+
+  function selectHandler(topicId) {
+    setSelectedTopic(topicId)
+  }
+
   return (
     <div>
-      <Header></Header>
+      <Header />
       <main>
         <h2>Time to get started!</h2>
         <section id="core-concepts">
@@ -25,11 +35,12 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton>Components</TabButton>
-            <TabButton>JSX</TabButton>
-            <TabButton>Props</TabButton>
-            <TabButton>State</TabButton>
+            <TabButton onSelect={() => selectHandler('components')}>Components</TabButton>
+            <TabButton onSelect={() => selectHandler('jsx')}>JSX</TabButton>
+            <TabButton onSelect={() => selectHandler('props')}>Props</TabButton>
+            <TabButton onSelect={() => selectHandler('state')}>State</TabButton>
           </menu>
+          {selectedTopic}
         </section>
       </main>
     </div>
