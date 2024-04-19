@@ -7,21 +7,16 @@ const initialGameBoard = [
   [null, null, null],
 ];
 
-export default function GameBoard({ onSelectSquare, activePlayerSymbol }) {
+export default function GameBoard({ onSelectSquare, turns }) {
 
-  const [gameBoard, setGameBoard] = useState(initialGameBoard);
+  let gameBoard = initialGameBoard;
 
-  function buttonSymbolHandler(rowIndex, colIndex) {
-    setGameBoard((previousBoard) => {
-      // It is highly recomended when updating Obj or Arr that you DO NOT mutate, 
-      // but instead deep copy and use that to save the changes
-      const updatedBoard = [...previousBoard.map(innerArray => [...innerArray])];
-      updatedBoard[rowIndex][colIndex] = activePlayerSymbol;
-      return updatedBoard;
-    });
+  for (const turn of turns) {
+    const { square, player } = turn;
+    const { row, col } = square;
 
-    // execute passed in callback
-    onSelectSquare();
+    // This is called derived or computed state, it is not managed be React's state
+    gameBoard[row][col] = player;
   }
 
   return (
@@ -29,7 +24,7 @@ export default function GameBoard({ onSelectSquare, activePlayerSymbol }) {
       {gameBoard.map((row, rowIndex) => <li key={rowIndex}>
         <ol>
           {row.map((playerSymbol, colIndex) => <li key={colIndex}>
-            <button onClick={() => buttonSymbolHandler(rowIndex, colIndex)}>{playerSymbol}</button>
+            <button onClick={() => onSelectSquare(rowIndex, colIndex)}>{playerSymbol}</button>
           </li>)}
         </ol>
       </li>)}
