@@ -8,7 +8,7 @@ import TabButton from './components/TabButton.jsx';
 function App() {
   // This always takes 2 values (the names are arbitrary)
   // The first value is the current state obj and the later is a function to update the state object
-  const [ selectedTopic, setSelectedTopic ] = useState('Please select an example.'); // This must only be called inside of component functions and at the top level
+  const [selectedTopic, setSelectedTopic] = useState(); // This must only be called inside of component functions and at the top level
 
   function selectHandler(topicId) {
     setSelectedTopic(topicId)
@@ -35,20 +35,23 @@ function App() {
         <section id="examples">
           <h2>Examples</h2>
           <menu>
-            <TabButton onSelect={() => selectHandler('components')}>Components</TabButton>
-            <TabButton onSelect={() => selectHandler('jsx')}>JSX</TabButton>
-            <TabButton onSelect={() => selectHandler('props')}>Props</TabButton>
-            <TabButton onSelect={() => selectHandler('state')}>State</TabButton>
+            <TabButton isSelected={selectedTopic === 'components'} onSelect={() => selectHandler('components')}>Components</TabButton>
+            <TabButton isSelected={selectedTopic === 'jsx'} onSelect={() => selectHandler('jsx')}>JSX</TabButton>
+            <TabButton isSelected={selectedTopic === 'props'} onSelect={() => selectHandler('props')}>Props</TabButton>
+            <TabButton isSelected={selectedTopic === 'state'} onSelect={() => selectHandler('state')}>State</TabButton>
           </menu>
-          <div id="tab-content">
-            <h3>{EXAMPLES[selectedTopic] ? EXAMPLES[selectedTopic].title : selectedTopic}</h3>
-            <p>{EXAMPLES[selectedTopic] ? EXAMPLES[selectedTopic].description : ''}</p>
-            <pre>
-              <code>
-                {EXAMPLES[selectedTopic] ? EXAMPLES[selectedTopic].code : ''}
-              </code>
-            </pre>
-          </div>
+
+          {!selectedTopic && <p>Please select an example.</p>}
+          {selectedTopic && (
+            <div id="tab-content">
+              <h3>{EXAMPLES[selectedTopic].title}</h3>
+              <p>{EXAMPLES[selectedTopic].description}</p>
+              <pre>
+                <code>{EXAMPLES[selectedTopic].code}</code>
+              </pre>
+            </div>
+          )}
+
         </section>
       </main>
     </div>
