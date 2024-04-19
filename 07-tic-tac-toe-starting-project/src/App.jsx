@@ -4,6 +4,12 @@ import GameBoard from './components/GameBoard/GameBoard';
 import Log from './components/Log/Log';
 import { WINNING_COMBINATIONS } from './winning-combinations';
 
+const initialGameBoard = [
+  [null, null, null],
+  [null, null, null],
+  [null, null, null],
+];
+
 function deriveActivePlayer(gameTurns) {
   // Rather than use a different piece of state, using this will ensure it's the latest and most accurate data
   let currPlayer = 'X';
@@ -17,6 +23,26 @@ function deriveActivePlayer(gameTurns) {
 function App() {
   const [gameTurns, setGameTurns] = useState([]);
   const activePlayer = deriveActivePlayer(gameTurns);
+  let gameBoard = initialGameBoard;
+  let winner;
+
+  for (const turn of gameTurns) {
+    const { square, player } = turn;
+    const { row, col } = square;
+
+    // This is called derived or computed state, it is not managed be React's state
+    gameBoard[row][col] = player;
+  }
+
+  for (const combo of WINNING_COMBINATIONS) {
+    const firstSquareSymbol = gameBoard[combo[0].row][combo[0].column];
+    const secondSquareSymbol = gameBoard[combo[1].row][combo[1].column];
+    const thirdSquareSymbol = gameBoard[combo[2].row][combo[2].column];
+  
+    if (firstSquareSymbol && firstSquareSymbol === secondSquareSymbol && firstSquareSymbol === thirdSquareSymbol) {
+      winner = firstSquareSymbol;
+    }
+  }
 
   function selectSquareHandler(rowIndex, colIndex) {
     setGameTurns((prevTurns) => {
@@ -37,7 +63,8 @@ function App() {
           <Player initialName="Player 1" symbol="X" isActive={activePlayer === 'X'} />
           <Player initialName="Player 2" symbol="O" isActive={activePlayer === 'O'} />
         </ol>
-        <GameBoard onSelectSquare={selectSquareHandler} turns={gameTurns} />
+        {winner && <p>You won, {winner}!</p>}
+        <GameBoard onSelectSquare={selectSquareHandler} board={gameBoard} />
       </div>
       <Log turns={gameTurns} />
     </main>
