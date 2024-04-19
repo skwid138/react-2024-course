@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Player from './components/Player/Player';
 import GameBoard from './components/GameBoard/GameBoard';
 import Log from './components/Log/Log';
+import { WINNING_COMBINATIONS } from './winning-combinations';
 
 function deriveActivePlayer(gameTurns) {
   // Rather than use a different piece of state, using this will ensure it's the latest and most accurate data
@@ -14,7 +15,6 @@ function deriveActivePlayer(gameTurns) {
 }
 
 function App() {
-  //const [activePlayer, setActivePlayer] = useState('X');
   const [gameTurns, setGameTurns] = useState([]);
   const activePlayer = deriveActivePlayer(gameTurns);
 
